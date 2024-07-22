@@ -1,0 +1,32 @@
+<div>
+    <h3>Supervisor Landing Page</h3>
+    <div>
+      <label for="performance-year">PY (Performance Year):</label>
+      <select id="performance-year" [(ngModel)]="selectedYear">
+        <option *ngFor="let year of performanceYears" [value]="year">
+          {{ year }}
+        </option>
+      </select>
+    </div>
+  
+    <h4>Team members:</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>SR no</th>
+          <th>Name</th>
+          <th>Designation</th>
+          <th>PMS</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let member of teamMembers">
+          <td>{{ member.srNo }}</td>
+          <td>{{ member.name }}</td>
+          <td>{{ member.designation }}</td>
+          <td>{{ member.pms }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

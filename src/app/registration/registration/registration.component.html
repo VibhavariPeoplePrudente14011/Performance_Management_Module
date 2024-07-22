@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration Page</title>
+  <link rel="stylesheet" href="registration.component.css">    
+</head>
+<body>
+  <header>
+    <img src="assets/images/white-logo.jpg" alt="Company Logo" class="logo">
+  </header>
+  <div class="container">
+    <h2>Registration Page</h2>
+    <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="empId">Employee ID</label>
+        <input type="text" id="empId" formControlName="empId" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" formControlName="name" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" formControlName="email" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="phoneNumber">Phone Number</label>
+        <input type="text" id="phoneNumber" formControlName="phoneNumber" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" formControlName="password" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="roles">Select Role:</label>
+        <select id="roles" formControlName="roleFid">
+        <option *ngFor="let role of roles" [value]="role.id">{{ role.roleName }}</option>
+        </select>
+     </div>
+
+      <button type="submit" class="btn btn-primary" [disabled]="!registrationForm.valid">Register</button>
+    </form>
+  </div>
+</body>
+</html>

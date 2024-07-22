@@ -1,0 +1,39 @@
+<div>
+    <h3>Supervisor Goals Review and Confirmation</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>IG#</th>
+          <th>Goal Description</th>
+          <th>Corporate BHAG</th>
+          <th>Start Date</th>
+          <th>Completion Target Date</th>
+          <th>Performance Year</th>
+          <th>Weightage</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let goal of goals">
+          <td>{{ goal.igNumber }}</td>
+          <td><input [(ngModel)]="goal.description" placeholder="Enter description" (ngModelChange)="updateEditDate()" /></td>
+          <td>
+            <select [(ngModel)]="goal.corporateBHAG" (ngModelChange)="updateEditDate()">
+              <option *ngFor="let bhag of corporateBHAGs" [value]="bhag">{{ bhag }}</option>
+            </select>
+          </td>
+          <td><input [(ngModel)]="goal.startDate" type="date" (ngModelChange)="updateEditDate()" /></td>
+          <td><input [(ngModel)]="goal.completionTargetDate" type="date" (ngModelChange)="updateEditDate()" /></td>
+          <td>
+            <select [(ngModel)]="goal.performanceYear" (ngModelChange)="updateEditDate()">
+              <option *ngFor="let year of performanceYears" [value]="year">{{ year }}</option>
+            </select>
+          </td>
+          <td><input [(ngModel)]="goal.weightage" type="number" min="0" max="100" (ngModelChange)="updateEditDate()" /></td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="margin-top: 20px;">
+      <p><strong>Date:</strong> {{ editDate }}</p>
+    </div>
+  </div>
+  

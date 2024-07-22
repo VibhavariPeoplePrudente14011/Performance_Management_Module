@@ -1,0 +1,43 @@
+<div class="container">
+    <h2>Employee Landing Page</h2>
+    <form [formGroup]="goalForm" (ngSubmit)="onSubmit()">
+      <div formArrayName="goals">
+        <div *ngFor="let goal of goals.controls; let i=index" [formGroupName]="i" class="goal-form-group">
+          <div class="form-group">
+            <label for="igNumber">IG#:</label>
+            <input id="igNumber" formControlName="igNumber" type="number" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="goalSetting">Goal Setting:</label>
+            <textarea id="goalSetting" formControlName="goalSetting" class="form-control"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="bhag">BHAG:</label>
+            <select id="bhag" formControlName="bhag" class="form-control">
+              <option value="Option1">Option1</option>
+              <option value="Option2">Option2</option>
+              <option value="Option3">BHAG3</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="startDate">Start Date:</label>
+            <input id="startDate" formControlName="startDate" type="date" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="completionTargetDate">Completion Target Date:</label>
+            <input id="completionTargetDate" formControlName="completionTargetDate" type="date" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="performanceYear">Performance Year:</label>
+            <select id="performanceYear" formControlName="performanceYear" class="form-control">
+              <option *ngFor="let year of [2023, 2024, 2025]" [value]="year">{{year}}</option>
+            </select>
+          </div>
+          <button type="button" class="btn btn-danger" (click)="removeGoal(i)">Remove Goal</button>
+        </div>
+      </div>
+      <button type="button" class="btn btn-primary" (click)="addGoal()">Add Goal</button>
+      <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+  </div>
+  
