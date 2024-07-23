@@ -21,7 +21,9 @@ export class EmployeeLandingPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.addGoal(); // Add initial goal form group
+    this.getbhag();
   }
+
 
   get goals(): FormArray {
     return this.goalForm.get('goals') as FormArray;
@@ -32,11 +34,12 @@ export class EmployeeLandingPageComponent implements OnInit {
   addGoal(): void {
     const goalGroup = this.fb.group({
       igNumber: ['', Validators.required],
-      goalSetting: ['', Validators.required],
-      bhag_fid: ['', Validators.required],
+      goalSettingDescription: ['', Validators.required],
+      bhagFid: ['', Validators.required],
       startDate: ['', Validators.required],
       completionTargetDate: ['', Validators.required],
-      performanceYear: ['', Validators.required]
+      performanceYear: ['', Validators.required],
+      userFid:localStorage.getItem('UserId')
     });
     this.goals.push(goalGroup);
   }
@@ -60,76 +63,19 @@ export class EmployeeLandingPageComponent implements OnInit {
       this.addGoal(); // Add a new initial goal form group
     }
   }
+
+  getbhag() {
+    this.goalSettingService.getBhag().subscribe(
+        response=>{
+          console.log(response)
+          this.bhags = response;
+        },
+        error=>{
+          alert(error.error.message)
+        }
+      );
+    }
 }
 
-
-// import { getLocaleExtraDayPeriodRules } from '@angular/common';
-// import { Component, OnInit } from '@angular/core';
-// import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-// import { Router } from '@angular/router';
-// import { RegistrationService } from 'src/app/registration.service';
-
-// @Component({
-//   selector: 'app-registration',
-//   templateUrl: './registration.component.html',
-//   styleUrls: ['./registration.component.css']
-// })
-// export class RegistrationComponent implements OnInit {
-
-//   registrationForm: FormGroup;
-//   roles: any[] = [];
-  
-//   constructor(
-//   private fb: FormBuilder,
-//   private registrationService: RegistrationService,
-//   private router: Router) {
-//     this.registrationForm = this.fb.group({
-//       name: ['', Validators.required],
-//       email: ['', [Validators.required, Validators.email]],
-//       password: ['', [Validators.required, Validators.minLength(6)]],
-//       empId: ['', Validators.required ],
-//       phoneNumber: ['', [Validators.required, Validators.minLength(10),Validators.maxLength(10)]],
-//       roleFid:['', Validators.required]
-//     });
-//    }
-
-//   ngOnInit(): void {
-//         this.getRoles()
-//   }
-
-//   onSubmit(): void {
-//     if (this.registrationForm.valid) {
-//       console.log('Form Submitted!', this.registrationForm.value);
-//       const body = JSON.stringify(this.registrationForm.value);
-//       this.registrationService.register(body).subscribe(
-//         response=>{
-//           console.log(response)
-//           alert("Registerd sucessfully")
-
-//         // Navigate to the login page
-//           this.router.navigate(['/login']);
-//         },
-//         error=>{
-//           alert(error.error.message)
-//         }
-//       );
-      
-//     }
-//   }
-
-//    getRoles() {
-//     this.registrationService.getRoles().subscribe(
-//       response=>{
-//         console.log(response)
-//         this.roles = response;
-//       },
-//       error=>{
-//         alert(error.error.message)
-//       }
-//     );
-//   }
-
-
-// }
 
 

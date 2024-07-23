@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 })
 export class GoalSettingService {
 
-  private apiUrl = 'http://localhost:8080/goals'; // Update this URL to match your backend
+  private apiUrl = 'http://localhost:8080/goals/'; // Update this URL to match your backend
 
   constructor(private http: HttpClient) { }
 
@@ -22,7 +22,7 @@ export class GoalSettingService {
   }
 
   addGoal(goal: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl, goal);
+    return this.http.post<any>(this.apiUrl+'create', goal);
   }
 
   getBhag() {

@@ -31,6 +31,7 @@ export class LoginComponent implements OnInit {
             if (response.message === 'Login successful') {
               console.log('Login successful', response);
             localStorage.setItem('isLoggedIn', 'Yes');
+            localStorage.setItem('UserId', response.id);
               this.router.navigate(['/home']);
             } else {
               alert(response.message);
