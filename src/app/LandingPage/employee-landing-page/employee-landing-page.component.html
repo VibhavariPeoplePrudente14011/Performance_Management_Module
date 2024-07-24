@@ -1,5 +1,22 @@
-<div class="container">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Employee landing page </title>
+  <link rel="stylesheet" href="employee-landing-page.component.css"> 
+</head>
+<body>
+  <header>
+    <img src="assets/images/white-logo.jpg" alt="Company Logo" class="logo">
+  </header>
+
+  <div class="container">
     <h2>Employee Landing Page</h2>
+    <!-- Alert for successful goal addition -->
+    <div *ngIf="goalAdded" class="alert alert-success" role="alert">
+      Goal added successfully
+    </div>
     <form [formGroup]="goalForm" (ngSubmit)="onSubmit()">
       <div formArrayName="goals">
         <div *ngFor="let goal of goals.controls; let i=index" [formGroupName]="i" class="goal-form-group">
@@ -13,16 +30,10 @@
           </div>
           <div class="form-group">
             <label for="bhags">BHAG:</label>
-                <select id="bhags" formControlName="bhagFid">
-                <option *ngFor="let bhag of bhags" [value]="bhag.id">{{ bhag.bhagName }}</option>
+            <select id="bhags" formControlName="bhagFid">
+              <option *ngFor="let bhag of bhags" [value]="bhag.id">{{ bhag.bhagName }}</option>
             </select>
           </div>
-          <!-- <div class="form-group">
-            <label for="roles">Select Role:</label>
-            <select id="roles" formControlName="roleFid">
-            <option *ngFor="let role of roles" [value]="role.id">{{ role.roleName }}</option>
-            </select>
-         </div> -->
           <div class="form-group">
             <label for="startDate">Start Date:</label>
             <input id="startDate" formControlName="startDate" type="date" class="form-control">
@@ -38,10 +49,11 @@
             </select>
           </div>
           <button type="button" class="btn btn-danger" (click)="removeGoal(i)">Remove Goal</button>
+          <button type="submit" class="btn btn-success">Submit Goal</button>
         </div>
       </div>
       <button type="button" class="btn btn-primary" (click)="addGoal()">Add Goal</button>
-      <button type="submit" class="btn btn-success">Submit</button>
     </form>
   </div>
-  
+</body>
+</html>
