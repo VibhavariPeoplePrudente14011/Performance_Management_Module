@@ -12,35 +12,62 @@
   </header>
 
   <div class="container">
-    <h2>Employee Landing Page</h2>
-    <!-- Alert for successful goal addition -->
-    <div *ngIf="goalAdded" class="alert alert-success" role="alert">
-      Goal added successfully
+    <h2>Employee Goals</h2>
+  
+    <!-- Alert message -->
+    <div *ngIf="goalAdded" class="alert alert-success">
+      Goal submitted successfully!
     </div>
+  
+    <!-- Submitted goals table -->
+    <table *ngIf="submittedGoals.length > 0" class="table table-bordered">
+      <thead>
+        <tr>
+          <th>IG Number</th>
+          <th>Description</th>
+          <th>BHAG</th>
+          <th>Start Date</th>
+          <th>Completion Target Date</th>
+          <th>Performance Year</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let goal of submittedGoals">
+          <td>{{ goal.igNumber }}</td>
+          <td>{{ goal.goalSettingDescription }}</td>
+          <td>{{ goal.bhagFid }}</td>
+          <td>{{ goal.startDate }}</td>
+          <td>{{ goal.completionTargetDate }}</td>
+          <td>{{ goal.performanceYear }}</td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <!-- Goal submission form -->
     <form [formGroup]="goalForm" (ngSubmit)="onSubmit()">
       <div formArrayName="goals">
         <div *ngFor="let goal of goals.controls; let i=index" [formGroupName]="i" class="goal-form-group">
           <div class="form-group">
-            <label for="igNumber">IG#:</label>
-            <input id="igNumber" formControlName="igNumber" type="number" class="form-control">
+            <label for="igNumber">IG Number:</label>
+            <input type="text" formControlName="igNumber" class="form-control" required>
           </div>
           <div class="form-group">
-            <label for="goalSettingDescription">Goal Setting:</label>
-            <textarea id="goalSetting" formControlName="goalSettingDescription" class="form-control"></textarea>
+            <label for="goalSettingDescription">Goal Description:</label>
+            <input type="text" formControlName="goalSettingDescription" class="form-control" required>
           </div>
           <div class="form-group">
-            <label for="bhags">BHAG:</label>
-            <select id="bhags" formControlName="bhagFid">
+            <label for="bhagFid">BHAG:</label>
+            <select formControlName="bhagFid" class="form-control" required>
               <option *ngFor="let bhag of bhags" [value]="bhag.id">{{ bhag.bhagName }}</option>
             </select>
           </div>
           <div class="form-group">
             <label for="startDate">Start Date:</label>
-            <input id="startDate" formControlName="startDate" type="date" class="form-control">
+            <input type="date" formControlName="startDate" class="form-control" required>
           </div>
           <div class="form-group">
             <label for="completionTargetDate">Completion Target Date:</label>
-            <input id="completionTargetDate" formControlName="completionTargetDate" type="date" class="form-control">
+            <input type="date" formControlName="completionTargetDate" class="form-control" required>
           </div>
           <div class="form-group">
             <label for="performanceYear">Performance Year:</label>
@@ -48,12 +75,14 @@
               <option *ngFor="let year of [2023, 2024, 2025]" [value]="year">{{year}}</option>
             </select>
           </div>
+          <button type="submit" class="btn btn-primary">Submit Goal</button>
           <button type="button" class="btn btn-danger" (click)="removeGoal(i)">Remove Goal</button>
-          <button type="submit" class="btn btn-success">Submit Goal</button>
         </div>
       </div>
-      <button type="button" class="btn btn-primary" (click)="addGoal()">Add Goal</button>
+      <button type="button" class="btn btn-success" (click)="addGoal()">Add Goal</button>
+      
     </form>
   </div>
+  
 </body>
 </html>

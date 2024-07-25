@@ -22,10 +22,10 @@ export class GoalSettingService {
   }
 
   addGoal(goal: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl+'create', goal);
+    return this.http.post<any>(this.apiUrl+'create', goal, this.httpOptions);
   }
 
-  getBhag() {
+  getBhag(): Observable<any> {
     return this.http.get<any>(this.apiUrl+'getBhag', this.httpOptions);
   }
 }
