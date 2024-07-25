@@ -1,7 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home page</title>
+  <link rel="stylesheet" href="home.component.css"> 
+</head>
+
+
+<body>
+  <header>
+    <img src="assets/images/white-logo.jpg" alt="Company Logo" class="logo">
+  </header>
+
 <div class="container">
+  <p>You have successfully logged in.</p>
     <h2>Welcome to the Home Page!</h2>
-    <p>You have successfully logged in.</p>
-    <button routerLink="/employee-landing-page">Go to Employee Landing Page</button>
-    <button (click)="navigateToSupervisorLanding()">Go to Supervisor Landing Page</button>
+    
+    <button routerLink="/employee-landing-page">Go to Employee Landing Page</button><br><br>
+    <button (click)="navigateToSupervisorLanding()">Go to Supervisor Landing Page</button><br><br>
     <button (click)="navigateToSupervisorGoalsReview()">Go to Supervisor Goals Review</button>
   </div>
+
+</body>
+</html>
