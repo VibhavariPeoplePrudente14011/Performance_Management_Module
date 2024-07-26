@@ -1,26 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Employee landing page </title>
-  <link rel="stylesheet" href="employee-landing-page.component.css"> 
+  <link rel="stylesheet" href="employee-landing-page.component.css">
 </head>
+
 <body>
   <header>
     <img src="assets/images/white-logo.jpg" alt="Company Logo" class="logo">
+    <div class="Heading">
+      <h1>Employee landing page</h1>
+    </div>
   </header>
 
   <div class="container">
-    <h2>Employee Goals</h2>
-  
+    <h2>Employee Goal Setting </h2>
     <!-- Alert message -->
     <div *ngIf="goalAdded" class="alert alert-success">
       Goal submitted successfully!
     </div>
-  
     <!-- Submitted goals table -->
-    <table *ngIf="submittedGoals.length > 0" class="table table-bordered">
+    <h5>Submitted Goals:</h5>
+    <table *ngIf="submittedGoals.length > 0" class="goal-table table-bordered">
       <thead>
         <tr>
           <th>IG Number</th>
@@ -29,60 +33,66 @@
           <th>Start Date</th>
           <th>Completion Target Date</th>
           <th>Performance Year</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let goal of submittedGoals">
+        <tr *ngFor="let goal of submittedGoals; let i=index">
           <td>{{ goal.igNumber }}</td>
           <td>{{ goal.goalSettingDescription }}</td>
-          <td>{{ goal.bhagFid }}</td>
+          <td>{{ goal.bhag.id }}</td>
           <td>{{ goal.startDate }}</td>
           <td>{{ goal.completionTargetDate }}</td>
           <td>{{ goal.performanceYear }}</td>
+          <td>
+            <button type="button" class="btn btn-danger" (click)="removeSubmittedGoal(i)">Remove Goal</button>
+          </td>
         </tr>
       </tbody>
     </table>
-  
+
+    <h5>Add your Goals here:</h5>
     <!-- Goal submission form -->
     <form [formGroup]="goalForm" (ngSubmit)="onSubmit()">
       <div formArrayName="goals">
-        <div *ngFor="let goal of goals.controls; let i=index" [formGroupName]="i" class="goal-form-group">
-          <div class="form-group">
-            <label for="igNumber">IG Number:</label>
-            <input type="text" formControlName="igNumber" class="form-control" required>
-          </div>
-          <div class="form-group">
-            <label for="goalSettingDescription">Goal Description:</label>
-            <input type="text" formControlName="goalSettingDescription" class="form-control" required>
-          </div>
-          <div class="form-group">
-            <label for="bhagFid">BHAG:</label>
-            <select formControlName="bhagFid" class="form-control" required>
-              <option *ngFor="let bhag of bhags" [value]="bhag.id">{{ bhag.bhagName }}</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="startDate">Start Date:</label>
-            <input type="date" formControlName="startDate" class="form-control" required>
-          </div>
-          <div class="form-group">
-            <label for="completionTargetDate">Completion Target Date:</label>
-            <input type="date" formControlName="completionTargetDate" class="form-control" required>
-          </div>
-          <div class="form-group">
-            <label for="performanceYear">Performance Year:</label>
-            <select id="performanceYear" formControlName="performanceYear" class="form-control">
-              <option *ngFor="let year of [2023, 2024, 2025]" [value]="year">{{year}}</option>
-            </select>
-          </div>
-          <button type="submit" class="btn btn-primary">Submit Goal</button>
-          <button type="button" class="btn btn-danger" (click)="removeGoal(i)">Remove Goal</button>
-        </div>
+        <table class="goal-table">
+          <thead>
+            <tr>
+              <th>IG#</th>
+              <th>Goal Description</th>
+              <th>Corporate<br> BHAG</th>
+              <th>Start Date</th>
+              <th>Completion<br> Target Date</th>
+              <th>Performance <br>Year</th>
+              <!-- <th>Submit Goal</th> -->
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let goal of goals.controls; let i=index" [formGroupName]="i">
+              <!-- <div class="form-control"> -->
+              <td><input type="text" formControlName="igNumber" class="form-controligNumber" required></td>
+              <td> <input type="text" formControlName="goalSettingDescription" class="form-controldescription" required>
+              </td>
+              <td><select formControlName="bhagFid" class="form-control" required>
+                  <option *ngFor="let bhag of bhags" [value]="bhag.id">{{ bhag.id }}</option>
+                </select></td>
+              <td> <input type="date" formControlName="startDate" class="form-control" required> </td>
+              <td> <input type="date" formControlName="completionTargetDate" class="form-control" required></td>
+              <td> <select id="performanceYear" formControlName="performanceYear" class="form-control">
+                  <option *ngFor="let year of [2023, 2024, 2025]" [value]="year">{{year}}</option>
+                </select></td>
+              <td><button type="submit" class="btn btn-primary">Submit Goal</button> <button type="button"
+                  class="btn btn-danger" (click)="removeGoal(i)">Remove Goal</button> </td>
+              <!-- <td></td> -->
+              <!-- </div> -->
+            </tr>
+          </tbody>
+        </table>
       </div>
-      <button type="button" class="btn btn-success" (click)="addGoal()">Add Goal</button>
-      
     </form>
+    <button type="button" class="btn btn-success" (click)="addGoal()">Add Goal</button>
   </div>
-  
 </body>
+
 </html>

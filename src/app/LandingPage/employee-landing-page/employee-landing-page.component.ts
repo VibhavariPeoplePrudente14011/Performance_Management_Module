@@ -23,6 +23,7 @@ export class EmployeeLandingPageComponent implements OnInit {
   ngOnInit(): void {
     this.addGoal(); // Add initial goal form group
     this.getbhag();
+    this.getSubmittedGoals(); // Fetch submitted goals on initialization
   }
 
   get goals(): FormArray {
@@ -41,9 +42,21 @@ export class EmployeeLandingPageComponent implements OnInit {
     });
     this.goals.push(goalGroup);
   }
-
   removeGoal(index: number): void {
     this.goals.removeAt(index);
+  }
+
+  removeSubmittedGoal(index: number): void {
+    const goalId = this.submittedGoals[index].id; // Assuming each goal has a unique ID
+    this.goalSettingService.deleteGoal(goalId).subscribe(
+      () => {
+        this.submittedGoals.splice(index, 1);
+        this.saveGoalsToLocalStorage(); // Save to local storage after removal
+      },
+      error => {
+        console.error('Error deleting goal:', error); // Debug log for errors
+      }
+    );
   }
 
   onSubmit(): void {
@@ -56,6 +69,7 @@ export class EmployeeLandingPageComponent implements OnInit {
             console.log('Goal added:', newGoal); // Debug log
             this.submittedGoals.push(newGoal);
             this.goalAdded = true; // Set goalAdded to true when a goal is added
+            this.saveGoalsToLocalStorage(); // Save to local storage after adding a goal
             setTimeout(() => {
               this.goalAdded = false; // Hide the alert after 3 seconds
             }, 3000);
@@ -82,5 +96,27 @@ export class EmployeeLandingPageComponent implements OnInit {
         alert(error.error.message);
       }
     );
+  }
+
+  getSubmittedGoals(): void {
+    const savedGoals = localStorage.getItem('submittedGoals');
+    if (savedGoals) {
+      this.submittedGoals = JSON.parse(savedGoals);
+    } else {
+      this.goalSettingService.getGoals().subscribe(
+        goals => {
+          console.log('Fetched submitted goals:', goals); // Debug log
+          this.submittedGoals = goals;
+          this.saveGoalsToLocalStorage(); // Save to local storage on first fetch
+        },
+        error => {
+          console.error('Error fetching submitted goals:', error); // Debug log
+        }
+      );
+    }
+  }
+
+  saveGoalsToLocalStorage(): void {
+    localStorage.setItem('submittedGoals', JSON.stringify(this.submittedGoals));
   }
 }

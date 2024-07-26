@@ -28,4 +28,8 @@ export class GoalSettingService {
   getBhag(): Observable<any> {
     return this.http.get<any>(this.apiUrl+'getBhag', this.httpOptions);
   }
+
+  deleteGoal(id: number): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}delete/${id}`, this.httpOptions);
+  }
 }
