@@ -42,6 +42,7 @@ export class EmployeeLandingPageComponent implements OnInit {
     });
     this.goals.push(goalGroup);
   }
+  
   removeGoal(index: number): void {
     this.goals.removeAt(index);
   }
